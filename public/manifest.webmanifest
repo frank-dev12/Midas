@@ -1,0 +1,17 @@
+{
+  "name": "Midas POS",
+  "short_name": "Midas",
+  "description": "POS offline foundation for Midas ERP (scaffold)",
+  "start_url": "/pos",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#d97706",
+  "lang": "es-PE",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

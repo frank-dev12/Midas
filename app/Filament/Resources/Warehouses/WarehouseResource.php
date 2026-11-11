@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Filament\Resources\Warehouses;
+
+use App\Filament\Resources\Warehouses\Pages\ManageWarehouses;
+use App\Models\Warehouse;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
+class WarehouseResource extends Resource
+{
+    protected static ?string $model = Warehouse::class;
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingStorefront;
+
+    protected static ?string $navigationLabel = 'Almacenes';
+
+    protected static ?string $modelLabel = 'almacén';
+
+    protected static ?string $pluralModelLabel = 'almacenes';
+
+    protected static ?int $navigationSort = 2;
+
+    public static function form(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextInput::make('name')->label('Nombre')->required()->maxLength(255),
+                TextInput::make('code')->label('Código')->maxLength(50),
+                Toggle::make('is_default')->label('Por defecto')->default(true),
+                Toggle::make('is_active')->label('Activo')->default(true),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('name')->label('Nombre')->searchable(),
+                TextColumn::make('code')->label('Código'),
+                IconColumn::make('is_default')->label('Default')->boolean(),
+                IconColumn::make('is_active')->label('Activo')->boolean(),
+            ])
+            ->recordActions([
+                EditAction::make(),
+                DeleteAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ManageWarehouses::route('/'),
+        ];
+    }
+}
