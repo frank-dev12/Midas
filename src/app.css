@@ -1,0 +1,160 @@
+@import "tailwindcss" source(none);
+@source "../views";
+@source "../src";
+@source "../public/assets/pos.js";
+@source "../public/assets/filter.js";
+@source "../public/assets/print.js";
+
+@font-face {
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/outfit-latin-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/outfit-latin-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/outfit-latin-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Outfit;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/outfit-latin-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-600.woff2") format("woff2");
+}
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --color-paper: #efeae2;
+  --color-panel: #fffdfb;
+  --color-sand: #f6f1e8;
+  --color-ink: #1c1917;
+  --color-line: #e4dbd0;
+  --color-muted: #6f675f;
+  --color-copper: #c4622d;
+  --color-copper-dark: #8d3e16;
+  --color-moss: #2c5a38;
+  --color-moss-soft: #e7f3e6;
+  --color-wine: #8f2d2d;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button,
+  [type="button"],
+  [type="submit"] {
+    cursor: pointer;
+  }
+}
+
+#pay-dialog {
+  width: min(28rem, calc(100vw - 1.5rem));
+  max-height: min(92dvh, 44rem);
+  overflow: auto;
+  margin: auto;
+  border: 0;
+  padding: 0;
+  border-radius: 1rem;
+  background: #fffdfb;
+  color: #1c1917;
+}
+
+#pay-dialog::backdrop {
+  background: rgba(28, 25, 23, 0.55);
+}
+
+#reader {
+  overflow: hidden;
+  min-height: 16rem;
+  border-radius: 1rem;
+  background: #111;
+}
+
+#reader video {
+  width: 100% !important;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+#beep-toggle[aria-pressed="false"] {
+  opacity: 0.55;
+}
+
+.choice:has(input:checked) {
+  border-color: var(--color-copper);
+  background: color-mix(in srgb, var(--color-copper) 12%, white);
+  color: var(--color-copper-dark);
+}
+
+.pay-method[aria-pressed="true"] {
+  border-color: var(--color-copper);
+  background: color-mix(in srgb, var(--color-copper) 12%, white);
+  color: var(--color-copper-dark);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .ticket-print {
+    width: 80mm;
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+  }
+}
+
+@page {
+  margin: 8mm;
+}
